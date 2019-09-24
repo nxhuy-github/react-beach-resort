@@ -12,7 +12,7 @@ class RoomProvider extends Component {
   }
 
   componentDidMount() {
-    let rooms = this.formatData(items)
+    let rooms =  this.formatData(items)
     let featuredRooms = rooms.filter(room => room.featured === true)
     this.setState({
       rooms, // ~ rooms: rooms (ES6)
@@ -50,5 +50,13 @@ class RoomProvider extends Component {
 }
 
 const RoomConsumer = RoomContext.Consumer
+
+export function withRoomConsumer(Component){
+  return function ConsumerWrapper(props){
+    return <RoomConsumer>
+      {value => <Component {...props} context={value} />}
+    </RoomConsumer>
+  }
+}
 
 export {RoomProvider, RoomConsumer, RoomContext}
