@@ -3,6 +3,7 @@ import {RoomContext} from '../context'
 import Hero from '../components/Hero'
 import Banner from '../components/Banner'
 import {Link} from 'react-router-dom'
+import StyledHero from '../components/StyledHero'
 
 export default class SingleRoom extends Component {
   state = {
@@ -26,13 +27,22 @@ export default class SingleRoom extends Component {
     }
     const {name, description, capacity, size, price, extras, breakfast, pets, images} = room
     return (
-      <Hero hero="roomsHero">
-        <Banner title={`${name} room`}>
-          <Link to='/rooms' className="btn-primary">
-            back to rooms
-          </Link>
-        </Banner>
-      </Hero>
+      <>
+        <StyledHero img={images[0]}>
+          <Banner title={`${name} room`}>
+            <Link to='/rooms' className="btn-primary">
+              back to rooms
+            </Link>
+          </Banner>
+        </StyledHero>
+        <section className="single-room">
+          <div className="single-room-images">
+            {images.map((img, idx) => {
+              return <img key={idx} src={img} alt={name}/>
+            })}
+          </div>
+        </section>
+      </>
     )
   }
 }
